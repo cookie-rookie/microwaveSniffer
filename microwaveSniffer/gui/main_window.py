@@ -17,6 +17,8 @@ class DynamicGraphGLWidget(QOpenGLWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.x = np.linspace(0, 10, 800)
+        self.frequencies = [random.random() for _ in range(7)]
+        self.phase_shifts = [random.random() * 2 * np.pi for _ in range(7)]
         self.ys = [np.sin(self.x *random.random()) for _ in range(7)]
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.animate)
@@ -36,6 +38,7 @@ class DynamicGraphGLWidget(QOpenGLWidget):
         
        
         self.aspect_ratio = w / h
+        print(self.aspect_ratio)
         glOrtho(-10 * self.aspect_ratio, 10 * self.aspect_ratio, -1, 1, -1, 1)
         
         glMatrixMode(GL_MODELVIEW)
@@ -53,7 +56,7 @@ class DynamicGraphGLWidget(QOpenGLWidget):
             color = [random.random() for _ in range(3)]
             glColor3f(color[0], color[1], color[2])
             for i, value in enumerate(y):
-                
+             
                 x_coord = (self.x[i] / 5-.5) * 20 * self.aspect_ratio
                 y_coord = value
                 glVertex2f(x_coord, y_coord)
@@ -61,8 +64,10 @@ class DynamicGraphGLWidget(QOpenGLWidget):
 
     def animate(self):
       
-        self.ys = [np.roll(y, -1) for y in self.ys]
-        self.update()  
+        for i in range(len(self.ys)):
+            self.phase_shifts[i] += 1/50
+            self.ys[i] = np.sin(self.x * self.frequencies[i] + self.phase_shifts[i])
+        self.update()
 
 
 class MainWindow(QMainWindow):
