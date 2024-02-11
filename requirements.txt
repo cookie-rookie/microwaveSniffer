@@ -1,0 +1,7 @@
+pygments
+numpy
+scipy
+matplotlib
+pyqt6
+pyudev
+PyOpenGL PyOpenGL_accelerate
