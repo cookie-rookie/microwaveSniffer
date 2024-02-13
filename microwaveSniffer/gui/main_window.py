@@ -38,7 +38,7 @@ class DynamicGraphGLWidget(QOpenGLWidget):
         
        
         self.aspect_ratio = w / h
-        print(self.aspect_ratio)
+      
         glOrtho(-10 * self.aspect_ratio, 10 * self.aspect_ratio, -1, 1, -1, 1)
         
         glMatrixMode(GL_MODELVIEW)
@@ -113,9 +113,6 @@ class MainWindow(QMainWindow):
         self.graphWidget = DynamicGraphGLWidget(self)
         self.setCentralWidget(self.graphWidget)
         self.layout = QGridLayout(self.graphWidget)
-        self.signalListBtn = QPushButton("Signal List")
-        self.signalListBtn.clicked.connect(self.showSignalList)
-        self.layout.addWidget(self.signalListBtn, 0, 0)
         self.realTimeBtn = QPushButton("Real-Time Monitoring")
         self.realTimeBtn.clicked.connect(self.showRealTimeMonitoring)
         self.layout.addWidget(self.realTimeBtn, 0, 1)
@@ -130,11 +127,9 @@ class MainWindow(QMainWindow):
         self.styleUI()
 
 
-    def showSignalList(self):
-        print("Signal List Button Clicked")
+   
       
-        # signalListWindow = SignalListWindow()
-        # signalListWindow.show()
+
 
     def showRealTimeMonitoring(self):
         print("Real-Time Monitoring Button Clicked")
@@ -158,7 +153,7 @@ class MainWindow(QMainWindow):
     # APPLICATION OF THEME AND STYLES
     def styleUI(self):
      
-        self.signalListBtn.setStyleSheet(button_style)
+        
         self.realTimeBtn.setStyleSheet(button_style)
         self.hardwareEditorBtn.setStyleSheet(button_style)
         self.settingsBtn.setStyleSheet(button_style)
@@ -167,7 +162,6 @@ class MainWindow(QMainWindow):
     def apply_theme(self, theme):
        
         self.setStyleSheet(theme["main_background"])
-        self.signalListBtn.setStyleSheet(theme["button_style"])
         self.realTimeBtn.setStyleSheet(theme["button_style"])
         self.hardwareEditorBtn.setStyleSheet(theme["button_style"])
         self.settingsBtn.setStyleSheet(theme["button_style"])
